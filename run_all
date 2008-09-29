@@ -1,0 +1,112 @@
+#!/usr/bin/perl
+
+# Name:          run_all.pl
+# Purpose:       test runner - runs a suite of tests and create reports
+#                also updates the database with individual
+#                test results, serves as the heart of the Tapat program
+
+use strict;
+use warnings;
+use TAP::Parser qw/all/;
+use TAP::Parser::Aggregator qw/all/;
+use File::Basename;
+use DBI;
+
+chomp(my $time_now = `date +"%Y-%m-%d %X"`);
+open (my $report, ">", "/home/lotc/report") or die "$0 cannot open report. $!\n";
+print $report "-= $time_now Automated Test Script =-\n\n";
+
+sub update_case {    # Insert test case data into database
+  my $dbh = DBI->connect("DBI:mysql:database=lotc_testing;host=localhost",
+                         "root", "rootroot", {'RaiseError' => 1}) or die "Cannot connect: $!\n";
+  my ($tc, $result) = @_;
+  $dbh->do("UPDATE test_cases
+            SET last_run = NOW(), result = '$result'
+            WHERE tc_id = '$tc'
+            AND cluster_id = '0' ");  ### <- set cluster_id here
+  $dbh->disconnect;
+}
+
+my ($planned, $total_passed, $total_failed, $total_run);
+my @test_cases = qw[
+     		    /home/lotc/tests/upgrade.sh_TC2-11.07.1
+                    /home/lotc/tests/upgrade.sh_TC2-11.07.2
+                    /home/lotc/tests/install-sshkeys.sh_TC2-01.04
+		    /home/lotc/tests/ssh.sh_TC2-04.07
+		    /home/lotc/tests/ssh.sh_TC2-04.04
+                    /home/lotc/tests/user.sh_TC2-01.08
+                    /home/lotc/tests/rmuser.sh_TC2-01.03
+                    /home/lotc/tests/external-time.sh_TC2-04.03
+                    /home/lotc/tests/list-rpms.sh_TC2-12.03.6
+     		    /home/lotc/tests/list-rpms.sh_TC2-12.03.4
+     		    /home/lotc/tests/addrpm.sh_TC2-11.02
+     		    /home/lotc/tests/rmrpm.sh_TC2-11.03
+                    /home/lotc/tests/motd.sh_TC2-01.04
+                    /home/lotc/tests/32.sh_TC2-04.01
+                    /home/lotc/tests/passwd.sh_TC2-04.10
+                    /home/lotc/tests/sshkeys-rpm.sh_TC2-04.08
+                    /home/lotc/tests/sync-keys.sh_TC2-04.09
+                    /home/lotc/tests/ipmi.sh_TC2-04.05
+                    /home/lotc/tests/logs.sh_TC2-12.03.5
+                    /home/lotc/tests/reboot-node.sh_TC2-04.02
+                    /home/lotc/tests/alarm.sh_TC2-02.01
+                    /home/lotc/tests/persistent.sh_TC2-12.03.2
+                    /home/lotc/tests/persistent.sh_TC2-12.03.3
+                    /home/lotc/tests/rotate-log.sh_TC2-10.02
+                    /home/lotc/tests/kill-control.sh_TC2-06.01.1
+                    /home/lotc/tests/kill-control.sh_TC2-06.01.2
+      ];
+
+# Aggregate test results
+my $aggregate = TAP::Parser::Aggregator->new;
+foreach my $file (@test_cases) {
+  my $test = fileparse($file);
+  my ($script, $test_id) = split /_/, $test;
+  print $report "\tOverview for $test at $time_now\n";
+
+  # New parser for each test file
+  my $parser = TAP::Parser->new( { source => $file } );
+  $aggregate->start();            # start timer
+  $aggregate->add($file, $parser);
+
+  while ( my $result = $parser->next ) {
+    # write to the log file
+    open (my $log, ">>", "/var/log/test.log" )
+      or die "$0 cannot open log file. $!\n";
+    my $out = $result->as_string;
+    print $log "$out\n";
+    if ($result->is_plan) {
+      $planned = $result->tests_planned;
+    }
+  }
+  $aggregate->stop();             # stop timer
+
+  my $elapsed = $aggregate->elapsed_timestr();
+  my $failed = $parser->failed;
+  my $passed = $parser->passed;
+  $total_passed += $passed;
+  $total_failed += $failed;
+
+  # If we ran all our unit tests, and they all passed
+  if ($parser->is_good_plan && ($passed - $failed == $planned)) {
+    print $report "\nPassed all our planned tests\nUpdating database for test case: $test_id\n";
+    &update_case($test_id, "pass");
+    print $report "\nElapsed time: $elapsed\nPassed: $passed\nFailed: $failed\n---\n";
+  } else {
+    print $report "\nERROR in testing output.\nPlanned: $planned tests.\n";
+    &update_case($test_id, "fail");
+    print $report "\nElapsed time: $elapsed\nPassed: $passed\nFailed: $failed\n---\n";
+  }
+}
+
+print $report "\nTotal passed tests: $total_passed\nTotal failed tests: $total_failed\n";
+system "cat /home/lotc/report | mail -s \"Automated testing report for $time_now\" jeremiah.foster\@ericsson.com";
+
+# update xml file
+system "/usr/lib/cgi-bin/test_cases/merge.pl > /var/www/test.merge.xml";
+
+
+1;
+
+
+
