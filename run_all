@@ -13,7 +13,7 @@ use File::Basename;
 use DBI;
 
 chomp(my $time_now = `date +"%Y-%m-%d %X"`);
-open (my $report, ">", "/home/lotc/report") or die "$0 cannot open report. $!\n";
+open (my $report, ">", "/tmp/report") or die "$0 cannot open report. $!\n";
 print $report "-= $time_now Automated Test Script =-\n\n";
 
 sub update_case {    # Insert test case data into database
