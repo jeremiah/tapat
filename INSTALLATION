@@ -1,4 +1,4 @@
-This is the installation file for Tapat. It describes how to install Tapat.
+This document describes how to install Tapat.
 
 You'll need to first install some of the libraries that Tapat depends on for Tapat to
 work. This is automated if you use the Tapat deb, (which has not yet been created. :) )
