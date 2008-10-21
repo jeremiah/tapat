@@ -29,32 +29,7 @@ sub update_case {    # Insert test case data into database
 
 my ($planned, $total_passed, $total_failed, $total_run);
 my @test_cases = qw[
-     		    /home/lotc/tests/upgrade.sh_TC2-11.07.1
-                    /home/lotc/tests/upgrade.sh_TC2-11.07.2
-                    /home/lotc/tests/install-sshkeys.sh_TC2-01.04
-		    /home/lotc/tests/ssh.sh_TC2-04.07
-		    /home/lotc/tests/ssh.sh_TC2-04.04
-                    /home/lotc/tests/user.sh_TC2-01.08
-                    /home/lotc/tests/rmuser.sh_TC2-01.03
-                    /home/lotc/tests/external-time.sh_TC2-04.03
-                    /home/lotc/tests/list-rpms.sh_TC2-12.03.6
-     		    /home/lotc/tests/list-rpms.sh_TC2-12.03.4
-     		    /home/lotc/tests/addrpm.sh_TC2-11.02
-     		    /home/lotc/tests/rmrpm.sh_TC2-11.03
-                    /home/lotc/tests/motd.sh_TC2-01.04
-                    /home/lotc/tests/32.sh_TC2-04.01
-                    /home/lotc/tests/passwd.sh_TC2-04.10
-                    /home/lotc/tests/sshkeys-rpm.sh_TC2-04.08
-                    /home/lotc/tests/sync-keys.sh_TC2-04.09
-                    /home/lotc/tests/ipmi.sh_TC2-04.05
-                    /home/lotc/tests/logs.sh_TC2-12.03.5
-                    /home/lotc/tests/reboot-node.sh_TC2-04.02
-                    /home/lotc/tests/alarm.sh_TC2-02.01
-                    /home/lotc/tests/persistent.sh_TC2-12.03.2
-                    /home/lotc/tests/persistent.sh_TC2-12.03.3
-                    /home/lotc/tests/rotate-log.sh_TC2-10.02
-                    /home/lotc/tests/kill-control.sh_TC2-06.01.1
-                    /home/lotc/tests/kill-control.sh_TC2-06.01.2
+		     
       ];
 
 # Aggregate test results

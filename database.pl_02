@@ -1,0 +1,41 @@
+#!/usr/bin/perl
+
+# Name:            database.pl
+# Purpose:         check to see that out test database is installed (Currently we are using Postgres
+#                  because that is what was installed at Autodesk.) This program should support SQLite
+#                  and MySQL as well. 
+
+use strict;
+use warnings;
+use DBI;
+use Test::More tests => 3;
+
+
+# rethink this since we don't want to call "system" 
+if (system("which /usr/bin/pg_config")) {
+  my @pg_config = `/usr/bin/pg_config`;
+  my @pg_version = grep /VERSION/, @pg_config;
+  my ($name, $version) = split /=/, $pg_version[0];
+  chomp($version);
+  like($version, qr/Postgres*/, "We have a full postgress install.");
+
+  my $dbh = DBI->connect("dbi:Pg:dbname=automated_testing","","") 
+    or die "Cannot connect: $!\n";
+} elsif (
+
+
+my $select = "select * from test";
+my $sth = $dbh->prepare($select);
+$sth->execute();
+
+# diag("See if we can get an array ref from the db");
+pass(my $result = $dbh->selectall_arrayref($sth));
+
+my $row;
+foreach $row (@$result) {
+  # diag("Checking test data.");
+  ok("@$row" eq "1 test title", "Data exists");
+  print "DB row is -> @$row\n";
+}
+
+$dbh->disconnect();

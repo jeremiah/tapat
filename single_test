@@ -3,6 +3,8 @@
 # Name:          single_test
 # Purpose:       runs a single test
 
+# TODO: Needs pod, needs database connection,
+
 use strict;
 use diagnostics;
 use TAP::Parser qw/all/;
@@ -10,12 +12,13 @@ use TAP::Parser::Aggregator qw/all/;
 use File::Basename;
 use Term::ANSIColor;
 use DBI;
+use App::Test::Tapat;
 
 my $time_now = `date +"%Y-%m-%d %X"`;
 chomp($time_now);
 sub update_case {    # Insert test case data into database
-  my $dbh = DBI->connect("DBI:mysql:database=lotc_testing;host=localhost",
-                         "root", "rootroot", {'RaiseError' => 1}) or die "Cannot connect: $!\n";
+  my $dbh = DBI->connect("DBI:mysql:database=test;",
+                         "test", "test", {'RaiseError' => 1}) or die "Cannot connect: $!\n";
   my ($tc, $result) = @_;
   $dbh->do("UPDATE test_cases
             SET last_run = NOW(), result = '$result'

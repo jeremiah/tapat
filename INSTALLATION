@@ -1,4 +1,8 @@
 This document describes how to install Tapat.
 
+Currently there is no installation procedure, it is being created. There will be an
+installation procedure however but it will not take precedence over using official
+debs.
+
 You'll need to first install some of the libraries that Tapat depends on for Tapat to
 work. This is automated if you use the Tapat deb, (which has not yet been created. :) )
