@@ -1,8 +1,37 @@
-This document describes how to install Tapat.
+This document (INSTALL) describes how to install Tapat.
 
-Currently there is no installation procedure, it is being created. There will be an
-installation procedure however but it will not take precedence over using official
-debs.
+SYNOPSIS
+--------
 
-You'll need to first install some of the libraries that Tapat depends on for Tapat to
-work. This is automated if you use the Tapat deb, (which has not yet been created. :) )
+1. wget http:// (source forge tarball)
+2. tar xvf tapat.tar
+3. ./env.sh_01 
+4. cpan TAP::Parser TAP::Parser::Aggregator
+
+INSTRUCTIONS
+------------
+
+First, get the source code if you have not already. The current version is 0.2 which 
+should reflect the software's alpha status - it is very unpolished. 
+
+Second, untar the tarball.
+
+Third, run env.sh_01 which is in the "tapat" directory. This script provides some information
+on the environment that tapat will use. 
+
+Fourth, 
+
+
+OPTIONAL
+--------
+
+You might consider downloading tapat from github[0] where the source is kept. 
+The link is to version 0.2, the latest release as of Oct. 21, 2008. Here is a URL[1]
+that points to the development sources for tapat which you can download and hack 
+on as well.
+
+This installation procedure will not take precedence over using official deb packages
+which have not yet been created.
+
+[0] http://github.com/jeremiah/tapat/tree/123260a5c610f3ead9d0ae52c7773d0204df080b
+[1] git://github.com/jeremiah/tapat.git (Public Clone URL)
