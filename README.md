@@ -60,4 +60,5 @@ You can also look for information at:
 COPYRIGHT AND LICENCE
  
 Copyright (C) 2008, 2012 Jeremiah C. Foster
+
 The license for this software is the GPLv3
