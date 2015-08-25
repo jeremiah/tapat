@@ -21,7 +21,7 @@ debian repository, and I am not sure when I will submit it to
 debian. To use my repository, copy into your /etc/apt/sources.list the
 following lines:
  
-# Jeremiah Foster's deb repository:
+### Personal deb repository:
 deb http://jeremiahfoster.com:80/apt sid main contrib non-free
 deb-src http://jeremiahfoster.com:80/apt sid main contrib non-free 
  
