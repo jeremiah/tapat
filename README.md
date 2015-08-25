@@ -60,6 +60,4 @@ You can also look for information at:
 COPYRIGHT AND LICENCE
  
 Copyright (C) 2008, 2012 Jeremiah C. Foster
- 
-This program is free software; you can redistribute it and/or modify it
-under the same terms as Perl itself.
+The license for this software is the GPLv3
