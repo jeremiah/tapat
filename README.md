@@ -22,8 +22,8 @@ debian. To use my repository, copy into your /etc/apt/sources.list the
 following lines:
  
 ### Personal deb repository:
- deb http://jeremiahfoster.com:80/apt sid main contrib 
- deb-src http://jeremiahfoster.com:80/apt sid main contrib 
+    deb http://jeremiahfoster.com:80/apt sid main contrib 
+    deb-src http://jeremiahfoster.com:80/apt sid main contrib 
 
 Now you can do an `apt-get update` and then `apt-get install
 libapp-test-tapat-perl` and you should get the Tapat software along
