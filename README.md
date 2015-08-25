@@ -1,8 +1,7 @@
 # Tapat
  
-This is the README file for App-Test-Tapat. Tapat is test harness,
-written in perl, which uses the TAP protocol. [More on the TAP
-protocol](http://testanything.org/wiki/index.php/Main_Page).
+This is the README file for Tapat, a test harness, written in perl, 
+which uses the TAP protocol. [More on the TAP protocol](http://testanything.org/wiki/index.php/Main_Page).
  
 INSTALLATION
 
