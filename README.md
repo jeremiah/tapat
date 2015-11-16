@@ -1,7 +1,7 @@
 # Tapat
  
 This is the README file for Tapat, a test harness, written in perl, 
-which uses [the TAP protocol](http://testanything.org/wiki/index.php/Main_Page).
+which uses [the TAP protocol](http://testanything.org/).
  
 INSTALLATION
 
@@ -51,10 +51,6 @@ You can also look for information at:
  
     Search CPAN
         http://search.cpan.org/dist/App-Test-Tapat
-
-    The SourceForge website for Tapat
-        http://tapat.sourceforge.net
- 
  
 COPYRIGHT AND LICENCE
  
