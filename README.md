@@ -3,7 +3,7 @@
 This is the README file for Tapat, a test harness, written in perl, 
 which uses [the TAP protocol](http://testanything.org/).
  
-INSTALLATION
+## Installation
 
 To install this perl module, run the following commands:
  
@@ -28,7 +28,7 @@ Now you can do an `apt-get update` and then `apt-get install
 libapp-test-tapat-perl` and you should get the Tapat software along
 with its dependencies.
  
-SUPPORT AND DOCUMENTATION
+## Support and documentation
  
 After installing, you can find documentation for this module with the
 perldoc command.
