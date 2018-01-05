@@ -52,8 +52,8 @@ You can also look for information at:
     Search CPAN
         http://search.cpan.org/dist/App-Test-Tapat
  
-COPYRIGHT AND LICENCE
+## COPYRIGHT AND LICENCE
  
-Copyright (C) 2008, 2012 Jeremiah C. Foster
+Copyright (C) 2012 Jeremiah C. Foster
 
 The license for this software is the GPLv3
